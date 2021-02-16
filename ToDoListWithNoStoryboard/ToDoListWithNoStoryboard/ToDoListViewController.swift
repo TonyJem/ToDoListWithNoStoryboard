@@ -1,20 +1,49 @@
 /*
-Used Resources:
-https://softauthor.com/ios-uitableview-programmatically-in-swift/
-https://ioscoachfrank.com/remove-main-storyboard.html
-*/
+ Used Resources:
+ https://softauthor.com/ios-uitableview-programmatically-in-swift/
+ https://ioscoachfrank.com/remove-main-storyboard.html
+ */
 
 import UIKit
 
 class ToDoListViewController: UIViewController {
     
+    let todoItemsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return tableView
+    }()
+    
     private let todoItems = TodoItemModel.getTodoItems()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        todoItemsTableView.delegate = self
+        todoItemsTableView.dataSource = self
+        
+        addSubviewsToMainView()
+        setConstraintsToTableView()
     }
+    
+}
 
+extension ToDoListViewController {
+    
+    func addSubviewsToMainView() {
+        view.addSubview(todoItemsTableView)
+    }
+    
+    func setConstraintsToTableView() {
+        NSLayoutConstraint.activate([
+            todoItemsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            todoItemsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            todoItemsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            todoItemsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
 }
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
