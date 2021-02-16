@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  ToDoListWithNoStoryboard
-//
-//  Created by Office-iMac on 2021-02-16.
-//
-
 import UIKit
 
 @main
