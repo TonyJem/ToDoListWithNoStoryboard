@@ -38,7 +38,7 @@ class ItemTableViewCell: UITableViewCell {
         containerView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         titleLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 20).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor).isActive = true
         
     }
