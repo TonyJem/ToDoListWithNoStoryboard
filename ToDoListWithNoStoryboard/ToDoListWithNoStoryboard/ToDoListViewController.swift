@@ -1,6 +1,8 @@
-// Used Resources:
-// https://softauthor.com/ios-uitableview-programmatically-in-swift/
-
+/*
+Used Resources:
+https://softauthor.com/ios-uitableview-programmatically-in-swift/
+https://ioscoachfrank.com/remove-main-storyboard.html
+*/
 
 
 import UIKit
