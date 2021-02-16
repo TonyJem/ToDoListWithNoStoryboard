@@ -14,7 +14,7 @@ class ItemTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        label.textColor = AppColors.itemTitleFontColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
