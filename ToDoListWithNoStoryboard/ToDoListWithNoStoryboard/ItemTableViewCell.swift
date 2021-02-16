@@ -19,7 +19,7 @@ class ItemTableViewCell: UITableViewCell {
         }
     }
     
-    let checkMark: UIImageView = {
+    private let checkMark: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill // image will never be strecthed vertially or horizontally
         image.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
@@ -42,7 +42,7 @@ class ItemTableViewCell: UITableViewCell {
         return label
     }()
     
-    let editButton: UIButton = {
+    private let editButton: UIButton = {
         let button = UIButton()
         button.contentMode = .scaleAspectFill // content will never be strecthed vertially or horizontally
         button.setImage(UIImage(systemName: "square.and.pencil"), for: UIControl.State.normal)
@@ -51,7 +51,7 @@ class ItemTableViewCell: UITableViewCell {
         return button
     }()
     
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let button = UIButton()
         button.contentMode = .scaleAspectFill // content will never be strecthed vertially or horizontally
         button.setImage(UIImage(systemName: "trash"), for: UIControl.State.normal)
@@ -70,7 +70,7 @@ class ItemTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    @objc func didTapDeleteButton() {
+    @objc private func didTapDeleteButton() {
         delegate?.deleteCell(cell: self)
     }
 }
