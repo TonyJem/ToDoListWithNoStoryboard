@@ -11,7 +11,7 @@ class ItemTableViewCell: UITableViewCell {
         }
     }
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = AppColors.itemTitleFontColor
@@ -19,7 +19,7 @@ class ItemTableViewCell: UITableViewCell {
         return label
     }()
     
-    let containerView: UIView = {
+    private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true // this will make sure its childrenViews do not go out of the boundary
@@ -35,7 +35,7 @@ class ItemTableViewCell: UITableViewCell {
         containerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         containerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         containerView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         titleLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor).isActive = true
