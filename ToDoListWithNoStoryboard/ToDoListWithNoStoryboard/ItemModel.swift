@@ -15,4 +15,9 @@ class TodoItemModel {
         TodoItem(title: "TodoItem5", isMarkedDone: false),
         TodoItem(title: "TodoItem6", isMarkedDone: true)
     ]
+    
+    func changeState(at item: Int) -> Bool {
+        todoItems[item].isMarkedDone = !todoItems[item].isMarkedDone
+    return todoItems[item].isMarkedDone
+    }
 }

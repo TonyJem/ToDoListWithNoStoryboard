@@ -79,4 +79,14 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        changeState(for: indexPath.row)
+        tableView.reloadData()
+    }
+    
+    private func changeState(for row: Int) {
+        model.todoItems[row].isMarkedDone = model.changeState(at: row)
+    }
 }
