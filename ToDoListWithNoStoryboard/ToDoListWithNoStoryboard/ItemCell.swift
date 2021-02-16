@@ -1,13 +1,13 @@
 import UIKit
 
-protocol ItemTableViewCellDelegate {
-    func editCell(cell: ItemTableViewCell)
-    func deleteCell(cell: ItemTableViewCell)
+protocol ItemCellDelegate {
+    func editCell(cell: ItemCell)
+    func deleteCell(cell: ItemCell)
 }
 
-class ItemTableViewCell: UITableViewCell {
+class ItemCell: UITableViewCell {
     
-    var delegate: ItemTableViewCellDelegate?
+    var delegate: ItemCellDelegate?
     
     var todoItem: TodoItem? {
         didSet {
@@ -76,7 +76,7 @@ class ItemTableViewCell: UITableViewCell {
 }
 
 // MARK: - Setup cell
-extension ItemTableViewCell {
+extension ItemCell {
     
     private func setupCell() {
         addSubviewsToCellView()

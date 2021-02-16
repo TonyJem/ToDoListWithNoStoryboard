@@ -12,7 +12,7 @@ class ToDoListViewController: UIViewController {
     private let todoItemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ItemCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
     
@@ -71,7 +71,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemCell
         cell.delegate = self
         cell.todoItem = model.todoItems[indexPath.row]
         return cell
@@ -92,16 +92,16 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//MARK: - ItemTableViewCellDelegate
-extension ToDoListViewController: ItemTableViewCellDelegate {
+//MARK: - ItemCellDelegate
+extension ToDoListViewController: ItemCellDelegate {
     
-    func deleteCell(cell: ItemTableViewCell) {
+    func deleteCell(cell: ItemCell) {
         guard let indexPath = todoItemsTableView.indexPath(for: cell) else { return }
         model.removeItem(at: indexPath.row)
         todoItemsTableView.reloadData()
     }
     
-    func editCell(cell: ItemTableViewCell) {
+    func editCell(cell: ItemCell) {
         
     }
 }
