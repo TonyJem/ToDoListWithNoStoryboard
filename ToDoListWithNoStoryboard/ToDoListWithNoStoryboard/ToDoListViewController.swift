@@ -44,7 +44,7 @@ extension ToDoListViewController {
         navigationItem.title = "ToDo List:"
         self.navigationController?.navigationBar.barTintColor = AppColors.backgroundColor
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.todoItemTitlefontColor]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.todoItemTitleFontColor]
     }
     
     private func addSubviewsToMainView() {
