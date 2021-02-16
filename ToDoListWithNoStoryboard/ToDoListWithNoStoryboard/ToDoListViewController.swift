@@ -8,7 +8,7 @@ import UIKit
 
 class ToDoListViewController: UIViewController {
     
-    let todoItemsTableView: UITableView = {
+    private let todoItemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -35,22 +35,22 @@ class ToDoListViewController: UIViewController {
 
 extension ToDoListViewController {
     
-    func setupBackground() {
+    private func setupBackground() {
         view.backgroundColor = AppColors.backgroundColor
     }
     
-    func setNavigation() {
+    private func setNavigation() {
         navigationItem.title = "ToDo List:"
         self.navigationController?.navigationBar.barTintColor = AppColors.backgroundColor
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.todoItemTitlefontColor]
     }
     
-    func addSubviewsToMainView() {
+    private func addSubviewsToMainView() {
         view.addSubview(todoItemsTableView)
     }
     
-    func setConstraintsToTableView() {
+    private func setConstraintsToTableView() {
         NSLayoutConstraint.activate([
             todoItemsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             todoItemsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
