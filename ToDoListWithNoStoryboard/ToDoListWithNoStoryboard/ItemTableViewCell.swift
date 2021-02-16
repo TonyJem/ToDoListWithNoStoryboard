@@ -55,39 +55,66 @@ class ItemTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
+        setupCellUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
+
+// MARK: - Setup UI for cell
+extension ItemTableViewCell {
+    
+    private func setupCellUI() {
+        addSubviewsToCellView()
+        setCheckMarkConstraints()
+        setContainerViewConstraints()
+        setTitleLabelConstraints()
+        setEditButtonConstraints()
+        setDeleteButtonConstraints()
+    }
+    
+    private func addSubviewsToCellView() {
         self.contentView.addSubview(checkMark)
         containerView.addSubview(titleLabel)
         self.contentView.addSubview(containerView)
         self.contentView.addSubview(editButton)
         self.contentView.addSubview(deleteButton)
-        
+    }
+    
+    private func setCheckMarkConstraints() {
         checkMark.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         checkMark.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20).isActive = true
         checkMark.widthAnchor.constraint(equalToConstant: 30).isActive = true
         checkMark.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
+    }
+    
+    private func setContainerViewConstraints() {
         containerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         containerView.leadingAnchor.constraint(equalTo: self.checkMark.trailingAnchor, constant: 10).isActive = true
         containerView.trailingAnchor.constraint(equalTo: self.editButton.leadingAnchor, constant: -10).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        
+    }
+    
+    private func setTitleLabelConstraints() {
         titleLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor).isActive = true
-        
+    }
+    
+    private func setEditButtonConstraints() {
         editButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
         editButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         editButton.trailingAnchor.constraint(equalTo: self.deleteButton.leadingAnchor, constant: -10).isActive = true
         editButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-        
+    }
+    
+    private func setDeleteButtonConstraints() {
         deleteButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20).isActive = true
         deleteButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
