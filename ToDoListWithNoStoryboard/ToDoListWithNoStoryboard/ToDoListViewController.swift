@@ -14,8 +14,8 @@ class ToDoListViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
-    
-    private let todoItems = TodoItemModel.getTodoItems()
+
+    private let model = TodoItemModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,12 +63,12 @@ extension ToDoListViewController {
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoItems.count
+        return model.todoItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = todoItems[indexPath.row].title
+        cell.textLabel?.text = model.todoItems[indexPath.row].title
         return cell
     }
     
