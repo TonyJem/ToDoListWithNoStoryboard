@@ -14,33 +14,35 @@ class ToDoListViewController: UIViewController {
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
-
+    
     private let model = TodoItemModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTableUI()
-
+        setupUI()
+        
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
-        
-        setNavigation()
-        
+    }
+}
+
+// MARK: - SetupUI
+extension ToDoListViewController {
+    
+    private func setupUI() {
+        setupTableUI()
+        setNavigationBar()
         addSubviewsToMainView()
         setConstraintsToTableView()
     }
-    
-}
-
-extension ToDoListViewController {
     
     private func setupTableUI() {
         view.backgroundColor = AppColors.backgroundColor
         todoItemsTableView.separatorColor = AppColors.tableCellSeparatorColor
     }
     
-    private func setNavigation() {
+    private func setNavigationBar() {
         navigationItem.title = "ToDo List:"
         self.navigationController?.navigationBar.barTintColor = AppColors.backgroundColor
         self.navigationController?.navigationBar.isTranslucent = false
@@ -62,6 +64,7 @@ extension ToDoListViewController {
     
 }
 
+// MARK: - tableView
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.todoItems.count
