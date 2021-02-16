@@ -35,6 +35,15 @@ class ItemTableViewCell: UITableViewCell {
         return label
     }()
     
+    let editButton: UIButton = {
+        let button = UIButton()
+        button.contentMode = .scaleAspectFill // content will never be strecthed vertially or horizontally
+        button.setImage(UIImage(systemName: "square.and.pencil"), for: UIControl.State.normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        return button
+    }()
+    
     let deleteButton: UIButton = {
         let button = UIButton()
         button.contentMode = .scaleAspectFill // content will never be strecthed vertially or horizontally
@@ -50,6 +59,7 @@ class ItemTableViewCell: UITableViewCell {
         self.contentView.addSubview(checkMark)
         containerView.addSubview(titleLabel)
         self.contentView.addSubview(containerView)
+        self.contentView.addSubview(editButton)
         self.contentView.addSubview(deleteButton)
         
         checkMark.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
@@ -59,12 +69,17 @@ class ItemTableViewCell: UITableViewCell {
         
         containerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         containerView.leadingAnchor.constraint(equalTo: self.checkMark.trailingAnchor, constant: 10).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: self.deleteButton.leadingAnchor, constant: -10).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: self.editButton.leadingAnchor, constant: -10).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         titleLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor).isActive = true
+        
+        editButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        editButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        editButton.trailingAnchor.constraint(equalTo: self.deleteButton.leadingAnchor, constant: -10).isActive = true
+        editButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         
         deleteButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
