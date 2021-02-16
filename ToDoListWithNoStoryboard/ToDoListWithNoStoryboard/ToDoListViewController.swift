@@ -62,23 +62,18 @@ extension ToDoListViewController {
             todoItemsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
 }
 
-// MARK: - tableView
-extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UITableViewDataSource and UITableViewDelegate
+extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.todoItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
+        cell.delegate = self
         cell.todoItem = model.todoItems[indexPath.row]
-        
-        cell.onDeleteButtonTap = {
-            print("🟢 Delete Button Tapped!")
-        }
-        
         return cell
     }
     
@@ -94,5 +89,17 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func changeState(for row: Int) {
         model.todoItems[row].isMarkedDone = model.changeState(at: row)
+    }
+}
+
+//MARK: - ItemTableViewCellDelegate
+extension ToDoListViewController: ItemTableViewCellDelegate {
+    
+    func editCell(cell: ItemTableViewCell) {
+        
+    }
+    
+    func deleteCell(cell: ItemTableViewCell) {
+        print("🟢 Delete Button Tapped!")
     }
 }

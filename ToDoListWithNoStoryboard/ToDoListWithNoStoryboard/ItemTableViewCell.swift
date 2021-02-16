@@ -1,8 +1,13 @@
 import UIKit
 
+protocol ItemTableViewCellDelegate {
+    func editCell(cell: ItemTableViewCell)
+    func deleteCell(cell: ItemTableViewCell)
+}
+
 class ItemTableViewCell: UITableViewCell {
     
-    var onDeleteButtonTap: () -> ()  = { }
+    var delegate: ItemTableViewCellDelegate?
     
     var todoItem: TodoItem? {
         didSet {
@@ -66,7 +71,7 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     @objc func didTapDeleteButton() {
-        onDeleteButtonTap()
+        delegate?.deleteCell(cell: self)
     }
 }
 
