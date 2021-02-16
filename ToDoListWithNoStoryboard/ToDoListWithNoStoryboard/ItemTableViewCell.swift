@@ -2,6 +2,8 @@ import UIKit
 
 class ItemTableViewCell: UITableViewCell {
     
+    var onDeleteButtonTap: () -> ()  = { }
+    
     var todoItem: TodoItem? {
         didSet {
             guard let currentItem = todoItem else {return}
@@ -56,24 +58,28 @@ class ItemTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        setupCellUI()
+        setupCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    @objc func didTapDeleteButton() {
+        onDeleteButtonTap()
+    }
 }
 
-// MARK: - Setup UI for cell
+// MARK: - Setup cell
 extension ItemTableViewCell {
     
-    private func setupCellUI() {
+    private func setupCell() {
         addSubviewsToCellView()
         setCheckMarkConstraints()
         setContainerViewConstraints()
         setTitleLabelConstraints()
         setEditButtonConstraints()
-        setDeleteButtonConstraints()
+        setupDeleteButton()
     }
     
     private func addSubviewsToCellView() {
@@ -111,7 +117,9 @@ extension ItemTableViewCell {
         editButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
     }
     
-    private func setDeleteButtonConstraints() {
+    private func setupDeleteButton() {
+        deleteButton.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
+        
         deleteButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20).isActive = true

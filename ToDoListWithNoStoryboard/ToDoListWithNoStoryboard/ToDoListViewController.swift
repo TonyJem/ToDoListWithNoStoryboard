@@ -2,6 +2,7 @@
  Used Resources:
  https://softauthor.com/ios-uitableview-programmatically-in-swift/
  https://ioscoachfrank.com/remove-main-storyboard.html
+ https://stackoverflow.com/questions/62617968/add-button-to-uitableview-cell-programmatically
  */
 
 import UIKit
@@ -73,6 +74,11 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
         cell.todoItem = model.todoItems[indexPath.row]
+        
+        cell.onDeleteButtonTap = {
+            print("🟢 Delete Button Tapped!")
+        }
+        
         return cell
     }
     
