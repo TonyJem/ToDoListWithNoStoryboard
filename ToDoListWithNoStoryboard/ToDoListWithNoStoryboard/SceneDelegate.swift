@@ -8,7 +8,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = ToDoListViewController()
+        let navController = UINavigationController()
+        let viewController = ToDoListViewController()
+        navController.viewControllers = [viewController]
+        
+        window.rootViewController = navController
         self.window = window
         window.makeKeyAndVisible()
     }

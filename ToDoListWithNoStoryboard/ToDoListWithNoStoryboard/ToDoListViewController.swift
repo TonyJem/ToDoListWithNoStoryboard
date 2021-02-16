@@ -23,6 +23,8 @@ class ToDoListViewController: UIViewController {
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
         
+        setNavigation()
+        
         addSubviewsToMainView()
         setConstraintsToTableView()
     }
@@ -30,6 +32,13 @@ class ToDoListViewController: UIViewController {
 }
 
 extension ToDoListViewController {
+    
+    func setNavigation() {
+        navigationItem.title = "ToDo List:"
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.2431372549, green: 0.7647058824, blue: 0.8392156863, alpha: 1)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 1, green: 1, blue: 1, alpha: 1)]
+    }
     
     func addSubviewsToMainView() {
         view.addSubview(todoItemsTableView)
