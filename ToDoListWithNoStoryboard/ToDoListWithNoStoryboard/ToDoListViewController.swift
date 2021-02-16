@@ -20,7 +20,7 @@ class ToDoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupBackground()
+        setupTableUI()
 
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
@@ -35,8 +35,9 @@ class ToDoListViewController: UIViewController {
 
 extension ToDoListViewController {
     
-    private func setupBackground() {
+    private func setupTableUI() {
         view.backgroundColor = AppColors.backgroundColor
+        todoItemsTableView.separatorColor = AppColors.tableCellSeparatorColor
     }
     
     private func setNavigation() {
