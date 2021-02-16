@@ -20,6 +20,8 @@ class ToDoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackground()
+
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
         
