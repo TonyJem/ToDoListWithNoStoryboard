@@ -7,7 +7,7 @@ class ItemTableViewCell: UITableViewCell {
             guard let currentItem = todoItem else {return}
             if let title = currentItem.title {
                 titleLabel.text = title
-                checkMark.image = UIImage(named: "Unchecked")
+                checkMark.image = currentItem.isMarkedDone ? UIImage(named: "Checked") : UIImage(named: "Unchecked")
             }
         }
     }
