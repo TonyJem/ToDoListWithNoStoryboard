@@ -20,4 +20,8 @@ class TodoItemModel {
         todoItems[item].isMarkedDone = !todoItems[item].isMarkedDone
     return todoItems[item].isMarkedDone
     }
+    
+    func removeItem(at index: Int) {
+        todoItems.remove(at: index)
+    }
 }

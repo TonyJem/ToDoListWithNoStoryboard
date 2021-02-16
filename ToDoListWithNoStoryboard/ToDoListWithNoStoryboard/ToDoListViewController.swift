@@ -95,11 +95,13 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: - ItemTableViewCellDelegate
 extension ToDoListViewController: ItemTableViewCellDelegate {
     
-    func editCell(cell: ItemTableViewCell) {
-        
+    func deleteCell(cell: ItemTableViewCell) {
+        guard let indexPath = todoItemsTableView.indexPath(for: cell) else { return }
+        model.removeItem(at: indexPath.row)
+        todoItemsTableView.reloadData()
     }
     
-    func deleteCell(cell: ItemTableViewCell) {
-        print("🟢 Delete Button Tapped!")
+    func editCell(cell: ItemTableViewCell) {
+        
     }
 }
