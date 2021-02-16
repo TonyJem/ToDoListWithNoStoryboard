@@ -13,7 +13,7 @@ class TodoItemModel {
         TodoItem(title: "TodoItem3", isMarkedDone: false),
         TodoItem(title: "TodoItem4", isMarkedDone: true),
         TodoItem(title: "TodoItem5", isMarkedDone: false),
-        TodoItem(title: "TodoItem6", isMarkedDone: true)
+        TodoItem(title: "TodoItem6TodoItem6TodoItem6TodoItem6", isMarkedDone: true)
     ]
     
     func changeState(at item: Int) -> Bool {
