@@ -69,10 +69,6 @@ class ItemCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    @objc private func didTapDeleteButton() {
-        delegate?.deleteCell(cell: self)
-    }
 }
 
 // MARK: - Setup cell
@@ -83,7 +79,7 @@ extension ItemCell {
         setCheckMarkConstraints()
         setContainerViewConstraints()
         setTitleLabelConstraints()
-        setEditButtonConstraints()
+        setupEditButton()
         setupDeleteButton()
     }
     
@@ -115,11 +111,17 @@ extension ItemCell {
         titleLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor).isActive = true
     }
     
-    private func setEditButtonConstraints() {
+    private func setupEditButton() {
+        editButton.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
+        
         editButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
         editButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         editButton.trailingAnchor.constraint(equalTo: self.deleteButton.leadingAnchor, constant: -10).isActive = true
         editButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+    }
+    
+    @objc private func didTapEditButton() {
+        delegate?.editCell(cell: self)
     }
     
     private func setupDeleteButton() {
@@ -129,5 +131,9 @@ extension ItemCell {
         deleteButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20).isActive = true
         deleteButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+    }
+    
+    @objc private func didTapDeleteButton() {
+        delegate?.deleteCell(cell: self)
     }
 }

@@ -12,11 +12,13 @@ class ToDoListViewController: UIViewController {
     private let todoItemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ItemCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ItemCell.self, forCellReuseIdentifier: "Сell")
         return tableView
     }()
     
     private let model = TodoItemModel()
+    
+    private var alert = UIAlertController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +73,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Сell", for: indexPath) as! ItemCell
         cell.delegate = self
         cell.todoItem = model.todoItems[indexPath.row]
         return cell
@@ -102,6 +104,39 @@ extension ToDoListViewController: ItemCellDelegate {
     }
     
     func editCell(cell: ItemCell) {
+        guard let indexPath = todoItemsTableView.indexPath(for: cell) else { return }
+        self.editCellContent(at: indexPath)
+    }
+    
+    private func editCellContent(at indexPath: IndexPath) {
         
+        let cell = tableView(todoItemsTableView, cellForRowAt: indexPath) as! ItemCell
+        
+        alert = UIAlertController(title: "Edit your ToDoItem!", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField(configurationHandler: { (textField) -> Void in
+            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
+            textField.text = cell.todoItem?.title
+        })
+        
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let editAlertAction = UIAlertAction(title: "Submit", style: .default) { (createAlert) in
+            guard let textFields = self.alert.textFields,
+                  textFields.count > 0,
+                  let textValue = self.alert.textFields?[0].text else { return }
+            self.model.updateItem(at: indexPath.row, with: textValue)
+            self.todoItemsTableView.reloadData()
+        }
+        
+        alert.addAction(cancelAlertAction)
+        alert.addAction(editAlertAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func alertTextFieldDidChange(_ sender: UITextField) {
+        guard let senderText = sender.text,
+              alert.actions.indices.contains(1) else { return }
+        let action = alert.actions[1]
+        action.isEnabled = senderText.count > 0
     }
 }
