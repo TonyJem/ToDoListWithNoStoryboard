@@ -3,11 +3,23 @@
  https://softauthor.com/ios-uitableview-programmatically-in-swift/
  https://ioscoachfrank.com/remove-main-storyboard.html
  https://stackoverflow.com/questions/62617968/add-button-to-uitableview-cell-programmatically
+ https://stackoverflow.com/questions/30022780/uibarbuttonitem-in-navigation-bar-programmatically
  */
 
 import UIKit
 
+
+protocol NavItemDelegate {
+    func addTask()
+}
+
 class ToDoListViewController: UIViewController {
+    
+    private let model = TodoItemModel()
+    
+    private var navDelegate: NavItemDelegate?
+    
+    private var alert = UIAlertController()
     
     private let todoItemsTableView: UITableView = {
         let tableView = UITableView()
@@ -16,9 +28,53 @@ class ToDoListViewController: UIViewController {
         return tableView
     }()
     
-    private let model = TodoItemModel()
+    private let addTasksButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "plus"),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(testAction))
+        return button
+    }()
     
-    private var alert = UIAlertController()
+    @objc private func testAction() {
+        navDelegate?.addTask()
+    }
+    
+    //    alert = UIAlertController(title: "Create new task", message: nil, preferredStyle: .alert)
+    //
+    //    alert.addTextField { (textField: UITextField) in
+    //        textField.placeholder = "Put your task here"
+    //        textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
+    //    }
+    //
+    //    let createAlertAction = UIAlertAction(title: "Create", style: .default) { (createAlert) in
+    //        // add new task
+    //
+    //        guard let unwrTextFieldValue = self.alert.textFields?[0].text else {
+    //            return
+    //        }
+    //
+    //        self.model.addItem(itemName: unwrTextFieldValue)
+    //        self.model.sortByTitle()
+    //        self.tableView.reloadData()
+    
+    
+    
+    private let editTasksButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "pencil"),
+                                     style: .plain,
+                                     target: self,
+                                     action: Selector(("action")))
+        return button
+    }()
+    
+    private let sortingTasksButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.up"),
+                                     style: .plain,
+                                     target: self,
+                                     action: Selector(("action")))
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +83,8 @@ class ToDoListViewController: UIViewController {
         
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
+        
+        navDelegate = self
     }
 }
 
@@ -35,8 +93,8 @@ extension ToDoListViewController {
     
     private func setupUI() {
         setupTableUI()
-        setNavigationBar()
         addSubviewsToMainView()
+        setNavigationBar()
         setConstraintsToTableView()
     }
     
@@ -45,15 +103,21 @@ extension ToDoListViewController {
         todoItemsTableView.separatorColor = AppColors.tableCellSeparatorColor
     }
     
+    private func addSubviewsToMainView() {
+        view.addSubview(todoItemsTableView)
+    }
+    
     private func setNavigationBar() {
-        navigationItem.title = "ToDo List:"
+        var rightBarButtons: [UIBarButtonItem] = []
+        rightBarButtons.append(addTasksButton)
+        rightBarButtons.append(editTasksButton)
+        rightBarButtons.append(sortingTasksButton)
+        
+        navigationItem.title = "Tasks"
         self.navigationController?.navigationBar.barTintColor = AppColors.backgroundColor
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.navBarFontColor]
-    }
-    
-    private func addSubviewsToMainView() {
-        view.addSubview(todoItemsTableView)
+        self.navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
     }
     
     private func setConstraintsToTableView() {
@@ -138,5 +202,11 @@ extension ToDoListViewController: ItemCellDelegate {
               alert.actions.indices.contains(1) else { return }
         let action = alert.actions[1]
         action.isEnabled = senderText.count > 0
+    }
+}
+
+extension ToDoListViewController: NavItemDelegate {
+    func addTask() {
+        print("🟢 Plus botton was tapped!")
     }
 }
