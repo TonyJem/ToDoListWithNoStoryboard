@@ -69,6 +69,15 @@ class ItemCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    @objc private func didTapDeleteButton() {
+        delegate?.deleteCell(cell: self)
+    }
+    
+    @objc private func didTapEditButton() {
+        delegate?.editCell(cell: self)
+    }
+    
 }
 
 // MARK: - Setup cell
@@ -120,10 +129,6 @@ extension ItemCell {
         editButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
     }
     
-    @objc private func didTapEditButton() {
-        delegate?.editCell(cell: self)
-    }
-    
     private func setupDeleteButton() {
         deleteButton.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
         
@@ -131,9 +136,5 @@ extension ItemCell {
         deleteButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         deleteButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20).isActive = true
         deleteButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-    }
-    
-    @objc private func didTapDeleteButton() {
-        delegate?.deleteCell(cell: self)
     }
 }
