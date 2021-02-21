@@ -146,7 +146,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Сell", for: indexPath) as! ItemCell
+        let cell = todoItemsTableView.dequeueReusableCell(withIdentifier: "Сell", for: indexPath) as! ItemCell
         cell.delegate = self
         cell.todoItem = model.todoItems[indexPath.row]
         return cell
@@ -178,7 +178,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             model.todoItems.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            todoItemsTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
     
@@ -187,7 +187,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in self?.editCellContent(at: indexPath)
             completionHandler(true)
         }
-        editAction.backgroundColor = .systemBlue
+        editAction.backgroundColor = AppColors.editActionBackgroundColor
         return UISwipeActionsConfiguration(actions: [editAction])
     }
     
