@@ -80,6 +80,13 @@ class ToDoListViewController: UIViewController {
         model.sortByTitle()
         todoItemsTableView.reloadData()
     }
+    
+    @objc func alertTextFieldDidChange(_ sender: UITextField) {
+        guard let senderText = sender.text,
+              alert.actions.indices.contains(1) else { return }
+        let action = alert.actions[1]
+        action.isEnabled = senderText.count > 0
+    }
 }
 
 // MARK: - SetupUI
@@ -174,6 +181,16 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in self?.editCellContent(at: indexPath)
+            completionHandler(true)
+        }
+        editAction.backgroundColor = .systemBlue
+        return UISwipeActionsConfiguration(actions: [editAction])
+    }
+    
 }
 
 //MARK: - ItemCellDelegate
@@ -213,12 +230,5 @@ extension ToDoListViewController: ItemCellDelegate {
         alert.addAction(cancelAlertAction)
         alert.addAction(editAlertAction)
         present(alert, animated: true, completion: nil)
-    }
-    
-    @objc func alertTextFieldDidChange(_ sender: UITextField) {
-        guard let senderText = sender.text,
-              alert.actions.indices.contains(1) else { return }
-        let action = alert.actions[1]
-        action.isEnabled = senderText.count > 0
     }
 }
