@@ -146,7 +146,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = todoItemsTableView.dequeueReusableCell(withIdentifier: "Сell", for: indexPath) as! ItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Сell", for: indexPath) as! ItemCell
         cell.delegate = self
         cell.todoItem = model.todoItems[indexPath.row]
         return cell
@@ -157,9 +157,9 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        todoItemsTableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         changeState(for: indexPath.row)
-        todoItemsTableView.reloadData()
+        tableView.reloadData()
     }
     
     private func changeState(for row: Int) {
@@ -168,7 +168,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         model.moveItem(fromIndex: fromIndexPath.row, toIndex: to.row)
-        todoItemsTableView.reloadData()
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -178,7 +178,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             model.todoItems.remove(at: indexPath.row)
-            todoItemsTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
     
