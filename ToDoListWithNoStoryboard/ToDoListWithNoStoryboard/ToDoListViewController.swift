@@ -12,7 +12,7 @@ import UIKit
 class ToDoListViewController: UIViewController {
     
     private let model = TodoItemModel()
-
+    
     private var alert = UIAlertController()
     
     private let todoItemsTableView: UITableView = {
@@ -59,14 +59,18 @@ extension ToDoListViewController {
         navigationBar.isTranslucent = false
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.navBarFontColor]
         
-        let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTask))
+        let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTaskDidTapp))
+        let editTaskItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editTaskDidTapp))
         
-        navigationItem.rightBarButtonItem = addTaskItem
-
+        navigationItem.rightBarButtonItems = [addTaskItem, editTaskItem]
     }
     
-    @objc func addNewTask() {
+    @objc func addNewTaskDidTapp() {
         print("🟢 addNewTask Tapped")
+    }
+    
+    @objc func editTaskDidTapp() {
+        print("🟡 editTask Tapped")
     }
     
     private func setConstraintsToTableView() {
