@@ -1,5 +1,6 @@
 import UIKit
 
+// All Colors used in App constants are stored here:
 struct AppColors {
     static let backgroundColor: UIColor = UIColor(red: 0.2431372549, green: 0.7647058824, blue: 0.8392156863, alpha: 1)
     static let editActionBackgroundColor: UIColor = .systemBlue
