@@ -21,34 +21,6 @@ class ToDoListViewController: UIViewController {
         return tableView
     }()
     
-    private let addTasksButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "plus"),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(testAction))
-        return button
-    }()
-    
-    @objc private func testAction() {
-        
-    }
-    
-    private let editTasksButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "pencil"),
-                                     style: .plain,
-                                     target: self,
-                                     action: Selector(("action")))
-        return button
-    }()
-    
-    private let sortingTasksButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.up"),
-                                     style: .plain,
-                                     target: self,
-                                     action: Selector(("action")))
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,7 +28,6 @@ class ToDoListViewController: UIViewController {
         
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
-        
     }
 }
 
@@ -80,16 +51,10 @@ extension ToDoListViewController {
     }
     
     private func setNavigationBar() {
-        var rightBarButtons: [UIBarButtonItem] = []
-        rightBarButtons.append(addTasksButton)
-        rightBarButtons.append(editTasksButton)
-        rightBarButtons.append(sortingTasksButton)
-        
         navigationItem.title = "Tasks"
         self.navigationController?.navigationBar.barTintColor = AppColors.backgroundColor
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.navBarFontColor]
-        self.navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
     }
     
     private func setConstraintsToTableView() {
