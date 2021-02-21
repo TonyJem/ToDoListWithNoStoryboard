@@ -8,17 +8,10 @@
 
 import UIKit
 
-
-protocol NavItemDelegate {
-    func addTask()
-}
-
 class ToDoListViewController: UIViewController {
     
     private let model = TodoItemModel()
-    
-    private var navDelegate: NavItemDelegate?
-    
+
     private var alert = UIAlertController()
     
     private let todoItemsTableView: UITableView = {
@@ -37,28 +30,8 @@ class ToDoListViewController: UIViewController {
     }()
     
     @objc private func testAction() {
-        navDelegate?.addTask()
+        
     }
-    
-    //    alert = UIAlertController(title: "Create new task", message: nil, preferredStyle: .alert)
-    //
-    //    alert.addTextField { (textField: UITextField) in
-    //        textField.placeholder = "Put your task here"
-    //        textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
-    //    }
-    //
-    //    let createAlertAction = UIAlertAction(title: "Create", style: .default) { (createAlert) in
-    //        // add new task
-    //
-    //        guard let unwrTextFieldValue = self.alert.textFields?[0].text else {
-    //            return
-    //        }
-    //
-    //        self.model.addItem(itemName: unwrTextFieldValue)
-    //        self.model.sortByTitle()
-    //        self.tableView.reloadData()
-    
-    
     
     private let editTasksButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "pencil"),
@@ -84,7 +57,6 @@ class ToDoListViewController: UIViewController {
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
         
-        navDelegate = self
     }
 }
 
@@ -202,11 +174,5 @@ extension ToDoListViewController: ItemCellDelegate {
               alert.actions.indices.contains(1) else { return }
         let action = alert.actions[1]
         action.isEnabled = senderText.count > 0
-    }
-}
-
-extension ToDoListViewController: NavItemDelegate {
-    func addTask() {
-        print("🟢 Plus botton was tapped!")
     }
 }
