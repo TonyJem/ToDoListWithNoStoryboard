@@ -209,13 +209,11 @@ extension ToDoListViewController: ItemCellDelegate {
     
     private func editCellContent(at indexPath: IndexPath) {
         
-        let cell = tableView(todoItemsTableView, cellForRowAt: indexPath) as! ItemCell
-        
         alert = UIAlertController(title: "Edit your ToDoItem!", message: nil, preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { (textField) -> Void in
             textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
-            textField.text = cell.todoItem?.title
+            textField.text = self.model.todoItems[indexPath.row].title
         })
         
         let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
