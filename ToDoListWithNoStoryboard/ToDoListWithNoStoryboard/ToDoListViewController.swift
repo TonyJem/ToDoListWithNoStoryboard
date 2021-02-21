@@ -150,9 +150,9 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        todoItemsTableView.deselectRow(at: indexPath, animated: true)
         changeState(for: indexPath.row)
-        tableView.reloadData()
+        todoItemsTableView.reloadData()
     }
     
     private func changeState(for row: Int) {
@@ -164,6 +164,16 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         todoItemsTableView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            model.todoItems.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
 }
 
 //MARK: - ItemCellDelegate
