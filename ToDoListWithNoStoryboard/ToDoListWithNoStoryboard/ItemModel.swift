@@ -28,6 +28,12 @@ class TodoItemModel {
         todoItems.remove(at: index)
     }
     
+    func moveItem(fromIndex: Int, toIndex: Int) {
+        let from = todoItems[fromIndex]
+        todoItems.remove(at: fromIndex)
+        todoItems.insert(from, at: toIndex)
+    }
+    
     func updateItem(at index: Int, with newTitle: String) {
         todoItems[index].title = newTitle
     }

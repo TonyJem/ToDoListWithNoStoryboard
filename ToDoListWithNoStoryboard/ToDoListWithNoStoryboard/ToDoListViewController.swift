@@ -158,6 +158,12 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     private func changeState(for row: Int) {
         model.todoItems[row].isMarkedDone = model.changeState(at: row)
     }
+    
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        model.moveItem(fromIndex: fromIndexPath.row, toIndex: to.row)
+        todoItemsTableView.reloadData()
+    }
+    
 }
 
 //MARK: - ItemCellDelegate
