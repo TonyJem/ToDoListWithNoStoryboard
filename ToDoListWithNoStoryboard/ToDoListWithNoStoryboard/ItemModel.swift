@@ -17,6 +17,7 @@ class TodoItemModel {
     ]
     
     var sortedAscending: Bool = true
+    var editButtonClicked: Bool = false
     
     func changeState(at item: Int) -> Bool {
         todoItems[item].isMarkedDone = !todoItems[item].isMarkedDone

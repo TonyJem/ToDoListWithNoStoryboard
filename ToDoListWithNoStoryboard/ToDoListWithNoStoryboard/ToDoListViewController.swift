@@ -15,6 +15,12 @@ class ToDoListViewController: UIViewController {
     
     private var alert = UIAlertController()
     
+    private var editTaskItemIcon = "pencil" {
+        didSet {
+            setNavigationBarButtons()
+        }
+    }
+    
     private let todoItemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +61,12 @@ class ToDoListViewController: UIViewController {
     }
     
     @objc func editTaskDidTapp() {
-        print("🟡 editTask Tapped")
+        let editOn = "pencil.slash"
+        let editOff = "pencil"
+        todoItemsTableView.setEditing(!todoItemsTableView.isEditing, animated: true)
+        
+        model.editButtonClicked = !model.editButtonClicked
+        editTaskItemIcon = model.editButtonClicked ? editOn : editOff
     }
     
     @objc func sortTasksDidTapp() {
@@ -95,7 +106,7 @@ extension ToDoListViewController {
     
     private func setNavigationBarButtons() {
         let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTaskDidTapp))
-        let editTaskItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editTaskDidTapp))
+        let editTaskItem = UIBarButtonItem(image: UIImage(systemName: editTaskItemIcon), style: .plain, target: self, action: #selector(editTaskDidTapp))
         let sortTasksItem = UIBarButtonItem(image: UIImage(systemName: "arrow.up"), style: .plain, target: self, action: #selector(sortTasksDidTapp))
         
         navigationItem.rightBarButtonItems = [addTaskItem, editTaskItem, sortTasksItem]
