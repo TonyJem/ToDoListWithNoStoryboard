@@ -15,6 +15,13 @@ class ToDoListViewController: UIViewController {
     
     private var alert = UIAlertController()
     
+    private let todoItemsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ItemCell.self, forCellReuseIdentifier: "Сell")
+        return tableView
+    }()
+    
     private var editTaskItemIcon = "pencil" {
         didSet {
             setNavigationBarButtons()
@@ -27,18 +34,9 @@ class ToDoListViewController: UIViewController {
         }
     }
     
-    private let todoItemsTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ItemCell.self, forCellReuseIdentifier: "Сell")
-        return tableView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-        
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
     }
@@ -66,11 +64,10 @@ class ToDoListViewController: UIViewController {
         createAlertAction.isEnabled = false
     }
     
-    @objc func editTaskDidTapp() {
+    @objc func editTasksDidTapp() {
         let editOn = "pencil.slash"
         let editOff = "pencil"
         todoItemsTableView.setEditing(!todoItemsTableView.isEditing, animated: true)
-        
         model.editButtonClicked = !model.editButtonClicked
         editTaskItemIcon = model.editButtonClicked ? editOn : editOff
     }
@@ -119,7 +116,7 @@ extension ToDoListViewController {
     
     private func setNavigationBarButtons() {
         let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTaskDidTapp))
-        let editTaskItem = UIBarButtonItem(image: UIImage(systemName: editTaskItemIcon), style: .plain, target: self, action: #selector(editTaskDidTapp))
+        let editTaskItem = UIBarButtonItem(image: UIImage(systemName: editTaskItemIcon), style: .plain, target: self, action: #selector(editTasksDidTapp))
         let sortTasksItem = UIBarButtonItem(image: UIImage(systemName: sortTasksItemIcon), style: .plain, target: self, action: #selector(sortTasksDidTapp))
         
         navigationItem.rightBarButtonItems = [addTaskItem, editTaskItem, sortTasksItem]
