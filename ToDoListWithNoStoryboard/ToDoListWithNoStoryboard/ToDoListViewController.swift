@@ -4,6 +4,7 @@
  https://ioscoachfrank.com/remove-main-storyboard.html
  https://stackoverflow.com/questions/62617968/add-button-to-uitableview-cell-programmatically
  https://stackoverflow.com/questions/30022780/uibarbuttonitem-in-navigation-bar-programmatically
+ https://stackoverflow.com/questions/33717698/create-navbar-programmatically-with-button-and-title-swift
  */
 
 import UIKit
@@ -52,9 +53,20 @@ extension ToDoListViewController {
     
     private func setNavigationBar() {
         navigationItem.title = "Tasks"
-        self.navigationController?.navigationBar.barTintColor = AppColors.backgroundColor
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.navBarFontColor]
+        
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        navigationBar.barTintColor = AppColors.backgroundColor
+        navigationBar.isTranslucent = false
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.navBarFontColor]
+        
+        let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTask))
+        
+        navigationItem.rightBarButtonItem = addTaskItem
+
+    }
+    
+    @objc func addNewTask() {
+        print("🟢 addNewTask Tapped")
     }
     
     private func setConstraintsToTableView() {
