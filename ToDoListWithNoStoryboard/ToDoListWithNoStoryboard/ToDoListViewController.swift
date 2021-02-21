@@ -209,6 +209,9 @@ extension ToDoListViewController: ItemCellDelegate {
     
     private func editCellContent(at indexPath: IndexPath) {
         
+        print("🟢 indexPath \(indexPath)")
+        print("---- ")
+        
         let cell = tableView(todoItemsTableView, cellForRowAt: indexPath) as! ItemCell
         
         alert = UIAlertController(title: "Edit your ToDoItem!", message: nil, preferredStyle: .alert)
