@@ -30,6 +30,18 @@ class ToDoListViewController: UIViewController {
         todoItemsTableView.delegate = self
         todoItemsTableView.dataSource = self
     }
+    
+    @objc func addNewTaskDidTapp() {
+        print("🟢 addNewTask Tapped")
+    }
+    
+    @objc func editTaskDidTapp() {
+        print("🟡 editTask Tapped")
+    }
+    
+    @objc func sortTasksDidTapp() {
+        print("🟣 sortTasks Tapped")
+    }
 }
 
 // MARK: - SetupUI
@@ -59,23 +71,15 @@ extension ToDoListViewController {
         navigationBar.isTranslucent = false
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.navBarFontColor]
         
+        setNavigationBarButtons()
+    }
+    
+    private func setNavigationBarButtons() {
         let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTaskDidTapp))
         let editTaskItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editTaskDidTapp))
         let sortTasksItem = UIBarButtonItem(image: UIImage(systemName: "arrow.up"), style: .plain, target: self, action: #selector(sortTasksDidTapp))
         
         navigationItem.rightBarButtonItems = [addTaskItem, editTaskItem, sortTasksItem]
-    }
-    
-    @objc func addNewTaskDidTapp() {
-        print("🟢 addNewTask Tapped")
-    }
-    
-    @objc func editTaskDidTapp() {
-        print("🟡 editTask Tapped")
-    }
-    
-    @objc func sortTasksDidTapp() {
-        print("🟣 sortTasks Tapped")
     }
     
     private func setConstraintsToTableView() {
