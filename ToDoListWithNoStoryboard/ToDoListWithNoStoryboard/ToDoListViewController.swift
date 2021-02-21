@@ -32,7 +32,26 @@ class ToDoListViewController: UIViewController {
     }
     
     @objc func addNewTaskDidTapp() {
-        print("🟢 addNewTask Tapped")
+        alert = UIAlertController(title: "Create new task", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField { (textField: UITextField) in
+            textField.placeholder = "Put your task here"
+            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
+        }
+        
+        let createAlertAction = UIAlertAction(title: "Create", style: .default) { (createAlert) in
+            guard let itemTitle = self.alert.textFields?[0].text else { return }
+            self.model.addItem(with: itemTitle)
+            self.model.sortByTitle()
+            self.todoItemsTableView.reloadData()
+        }
+        
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        alert.addAction(cancelAlertAction)
+        alert.addAction(createAlertAction)
+        present(alert, animated: true, completion: nil)
+        createAlertAction.isEnabled = false
     }
     
     @objc func editTaskDidTapp() {
