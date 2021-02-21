@@ -21,6 +21,12 @@ class ToDoListViewController: UIViewController {
         }
     }
     
+    private var sortTasksItemIcon = "arrow.up" {
+        didSet {
+            setNavigationBarButtons()
+        }
+    }
+    
     private let todoItemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +76,12 @@ class ToDoListViewController: UIViewController {
     }
     
     @objc func sortTasksDidTapp() {
-        print("🟣 sortTasks Tapped")
+        let arrowUp = "arrow.up"
+        let arrowDown = "arrow.down"
+        model.sortedAscending = !model.sortedAscending
+        sortTasksItemIcon = model.sortedAscending ? arrowUp : arrowDown
+        model.sortByTitle()
+        todoItemsTableView.reloadData()
     }
 }
 
@@ -82,6 +93,8 @@ extension ToDoListViewController {
         addSubviewsToMainView()
         setNavigationBar()
         setConstraintsToTableView()
+        model.sortByTitle()
+        todoItemsTableView.reloadData()
     }
     
     private func setupTableUI() {
@@ -107,7 +120,7 @@ extension ToDoListViewController {
     private func setNavigationBarButtons() {
         let addTaskItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewTaskDidTapp))
         let editTaskItem = UIBarButtonItem(image: UIImage(systemName: editTaskItemIcon), style: .plain, target: self, action: #selector(editTaskDidTapp))
-        let sortTasksItem = UIBarButtonItem(image: UIImage(systemName: "arrow.up"), style: .plain, target: self, action: #selector(sortTasksDidTapp))
+        let sortTasksItem = UIBarButtonItem(image: UIImage(systemName: sortTasksItemIcon), style: .plain, target: self, action: #selector(sortTasksDidTapp))
         
         navigationItem.rightBarButtonItems = [addTaskItem, editTaskItem, sortTasksItem]
     }

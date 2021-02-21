@@ -38,7 +38,7 @@ class TodoItemModel {
     
     func sortByTitle() {
         todoItems.sort {
-            sortedAscending ? $0.title ?? "" < $1.title ?? "" : $0.title ?? "" > $1.title ?? ""
+            sortedAscending ? $0.title?.lowercased() ?? "" < $1.title?.lowercased() ?? "" : $0.title?.lowercased() ?? "" > $1.title?.lowercased() ?? ""
         }
     }
 
